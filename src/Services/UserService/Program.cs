@@ -11,9 +11,9 @@ using UserService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. Database Context (SQLite)
+// 1. Database Context (PostgreSQL)
 builder.Services.AddDbContext<UserDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=users.db"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // 2. Application Services
 builder.Services.AddScoped<ITokenService, TokenService>();
@@ -92,41 +92,48 @@ var app = builder.Build();
 // Ensure Database Created & Seed Sample Data
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<UserDbContext>();
-    db.Database.EnsureCreated();
-
-    if (!db.Users.Any())
+    try
     {
-        var sampleAlumni = new User
-        {
-            Email = "alumni.nam@fpt.edu.vn",
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword("123456"),
-            FullName = "Nguyễn Hoàng Nam",
-            Campus = "Hòa Lạc",
-            Major = "Kỹ thuật phần mềm",
-            Batch = "K14",
-            Bio = "Senior Software Engineer tại FPT Software. Sẵn sàng chia sẻ kinh nghiệm phỏng vấn & CV.",
-            Role = "Alumni",
-            IsEmailVerified = true,
-            PrivacySetting = new UserPrivacySetting { ShowEmail = true, ShowBio = true, ShowCampus = true, ShowMajor = true, ShowBatch = true }
-        };
+        var db = scope.ServiceProvider.GetRequiredService<UserDbContext>();
+        db.Database.EnsureCreated();
 
-        var sampleStudent = new User
+        if (!db.Users.Any())
         {
-            Email = "student.trung@fpt.edu.vn",
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword("123456"),
-            FullName = "Chí Trung",
-            Campus = "Hồ Chí Minh",
-            Major = "Kỹ thuật phần mềm",
-            Batch = "K17",
-            Bio = "Sinh viên năm 3 quan tâm tới kiến trúc Microservices và Cloud.",
-            Role = "Student",
-            IsEmailVerified = true,
-            PrivacySetting = new UserPrivacySetting { ShowEmail = false, ShowBio = true, ShowCampus = true, ShowMajor = true, ShowBatch = true }
-        };
+            var sampleAlumni = new User
+            {
+                Email = "alumni.nam@fpt.edu.vn",
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("123456"),
+                FullName = "Nguyễn Hoàng Nam",
+                Campus = "Hòa Lạc",
+                Major = "Kỹ thuật phần mềm",
+                Batch = "K14",
+                Bio = "Senior Software Engineer tại FPT Software. Sẵn sàng chia sẻ kinh nghiệm phỏng vấn & CV.",
+                Role = "Alumni",
+                IsEmailVerified = true,
+                PrivacySetting = new UserPrivacySetting { ShowEmail = true, ShowBio = true, ShowCampus = true, ShowMajor = true, ShowBatch = true }
+            };
 
-        db.Users.AddRange(sampleAlumni, sampleStudent);
-        db.SaveChanges();
+            var sampleStudent = new User
+            {
+                Email = "student.trung@fpt.edu.vn",
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("123456"),
+                FullName = "Chí Trung",
+                Campus = "Hồ Chí Minh",
+                Major = "Kỹ thuật phần mềm",
+                Batch = "K17",
+                Bio = "Sinh viên năm 3 quan tâm tới kiến trúc Microservices và Cloud.",
+                Role = "Student",
+                IsEmailVerified = true,
+                PrivacySetting = new UserPrivacySetting { ShowEmail = false, ShowBio = true, ShowCampus = true, ShowMajor = true, ShowBatch = true }
+            };
+
+            db.Users.AddRange(sampleAlumni, sampleStudent);
+            db.SaveChanges();
+        }
+    }
+    catch (Exception ex)
+    {
+        app.Logger.LogWarning("Chưa kết nối được tới PostgreSQL (Users DB): {Message}. Hãy chắc chắn PostgreSQL đang chạy.", ex.Message);
     }
 }
 

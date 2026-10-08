@@ -9,9 +9,9 @@ using Microsoft.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. Database Context (SQLite)
+// 1. Database Context (PostgreSQL)
 builder.Services.AddDbContext<ChatDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=chat.db"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // 2. SignalR Service
 builder.Services.AddSignalR();
@@ -103,38 +103,45 @@ var app = builder.Build();
 // Ensure DB Created & Seed Default Chat Rooms (Nhóm ngành & Phòng chung)
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<ChatDbContext>();
-    db.Database.EnsureCreated();
-
-    if (!db.Rooms.Any())
+    try
     {
-        db.Rooms.AddRange(
-            new ChatRoom
-            {
-                Name = "Không gian chung - Toàn trường",
-                RoomType = "Group",
-                Major = "Chung"
-            },
-            new ChatRoom
-            {
-                Name = "Nhóm ngành Công nghệ thông tin (IT)",
-                RoomType = "Group",
-                Major = "Kỹ thuật phần mềm"
-            },
-            new ChatRoom
-            {
-                Name = "Nhóm ngành Kinh tế & Quản trị kinh doanh",
-                RoomType = "Group",
-                Major = "Quản trị kinh doanh"
-            },
-            new ChatRoom
-            {
-                Name = "Nhóm ngành Thiết kế đồ họa & Mỹ thuật số",
-                RoomType = "Group",
-                Major = "Thiết kế đồ họa"
-            }
-        );
-        db.SaveChanges();
+        var db = scope.ServiceProvider.GetRequiredService<ChatDbContext>();
+        db.Database.EnsureCreated();
+
+        if (!db.Rooms.Any())
+        {
+            db.Rooms.AddRange(
+                new ChatRoom
+                {
+                    Name = "Không gian chung - Toàn trường",
+                    RoomType = "Group",
+                    Major = "Chung"
+                },
+                new ChatRoom
+                {
+                    Name = "Nhóm ngành Công nghệ thông tin (IT)",
+                    RoomType = "Group",
+                    Major = "Kỹ thuật phần mềm"
+                },
+                new ChatRoom
+                {
+                    Name = "Nhóm ngành Kinh tế & Quản trị kinh doanh",
+                    RoomType = "Group",
+                    Major = "Quản trị kinh doanh"
+                },
+                new ChatRoom
+                {
+                    Name = "Nhóm ngành Thiết kế đồ họa & Mỹ thuật số",
+                    RoomType = "Group",
+                    Major = "Thiết kế đồ họa"
+                }
+            );
+            db.SaveChanges();
+        }
+    }
+    catch (Exception ex)
+    {
+        app.Logger.LogWarning("Chưa kết nối được tới PostgreSQL (Chat DB): {Message}. Hãy chắc chắn PostgreSQL đang chạy.", ex.Message);
     }
 }
 

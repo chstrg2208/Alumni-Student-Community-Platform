@@ -2,7 +2,7 @@
 ## DỰ ÁN: ALUMNI CONNECT (NỀN TẢNG KẾT NỐI SINH VIÊN & CỰU SINH VIÊN)
 **Người phụ trách:** Nguyễn Chí Trung  
 **Phạm vi đảm nhiệm:** User Service + Chat Service + Kiến trúc C4 Model  
-**Công nghệ:** C# .NET 10, ASP.NET Core Web API, Entity Framework Core, SignalR, SQLite / SQL Server, JWT Bearer Authentication  
+**Công nghệ:** C# .NET 10, ASP.NET Core Web API, Entity Framework Core, SignalR, PostgreSQL, JWT Bearer Authentication  
 
 ---
 
@@ -63,10 +63,10 @@ flowchart TD
 
     subgraph ScopeTrung [PHẠM VI ĐẢM NHIỆM BỞI CHÍ TRUNG]
         UserService["👤 User Service\n[ASP.NET Core Web API]\nCổng 5164\nQuản lý Auth (JWT), Profile,\nSearch thành viên, Chặn tài khoản"]:::myService
-        UserDB[("🗄️ User Database\n[SQLite / SQL Server]\nBảng Users, Privacy, Blocked, Tokens")]:::db
+        UserDB[("🗄️ User Database\n[PostgreSQL]\nDatabase: alumni_user_db")]:::db
 
         ChatService["💬 Chat Service\n[ASP.NET Core + SignalR]\nCổng 5199\nChat 1-1, Chat nhóm ngành,\nKhông gian chung, Lưu tin nhắn"]:::myService
-        ChatDB[("🗄️ Chat Database\n[SQLite / MongoDB]\nBảng Rooms, Members, Messages")]:::db
+        ChatDB[("🗄️ Chat Database\n[PostgreSQL]\nDatabase: alumni_chat_db")]:::db
     end
 
     subgraph OtherScope [Các Service của thành viên khác]
