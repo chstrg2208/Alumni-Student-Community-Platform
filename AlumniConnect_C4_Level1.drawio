@@ -1,0 +1,58 @@
+<mxfile host="Electron" modified="2026-10-08T03:30:00.000Z" agent="Mozilla/5.0" version="21.0.0" type="device">
+  <diagram id="c4_level_1" name="C4 Level 1 - System Context">
+    <mxGraphModel dx="1422" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title1" value="&lt;b&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;C4 Model Level 1: System Context Diagram&lt;/font&gt;&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;Dự án: Alumni Connect Platform | Phụ trách kiến trúc: Nguyễn Chí Trung&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="300" y="20" width="600" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Person: Student -->
+        <mxCell id="student" value="&lt;b&gt;Sinh viên (Student)&lt;/b&gt;&lt;br/&gt;&lt;i&gt;[Person]&lt;/i&gt;&lt;br/&gt;&lt;br/&gt;Sinh viên trường FPT tìm kiếm cơ hội học bổng, việc làm, định hướng nghề nghiệp và kết nối với cựu sinh viên." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#08427B;strokeColor=#052D56;fontColor=#ffffff;arcSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="240" width="220" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- Person: Alumni -->
+        <mxCell id="alumni" value="&lt;b&gt;Cựu sinh viên (Alumni)&lt;/b&gt;&lt;br/&gt;&lt;i&gt;[Person]&lt;/i&gt;&lt;br/&gt;&lt;br/&gt;Cựu sinh viên chia sẻ kinh nghiệm thực tế, cơ hội việc làm, làm mentor và trò chuyện tư vấn định hướng." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#08427B;strokeColor=#052D56;fontColor=#ffffff;arcSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="900" y="240" width="220" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- Person: Admin -->
+        <mxCell id="admin" value="&lt;b&gt;Quản trị viên (Admin)&lt;/b&gt;&lt;br/&gt;&lt;i&gt;[Person]&lt;/i&gt;&lt;br/&gt;&lt;br/&gt;Quản trị tài khoản, kiểm duyệt bài viết diễn đàn và giám sát hoạt động hệ thống." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#08427B;strokeColor=#052D56;fontColor=#ffffff;arcSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="490" y="90" width="220" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- System: Alumni Connect Platform -->
+        <mxCell id="system" value="&lt;b&gt;Alumni Connect Platform&lt;/b&gt;&lt;br/&gt;&lt;i&gt;[Software System]&lt;/i&gt;&lt;br/&gt;&lt;br/&gt;Nền tảng mạng xã hội kết nối sinh viên và cựu sinh viên. Cho phép chia sẻ bài viết theo nhóm ngành, không gian chung và nhắn tin real-time." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168BD;strokeColor=#0B4884;fontColor=#ffffff;arcSize=10;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="450" y="280" width="300" height="180" as="geometry" />
+        </mxCell>
+
+        <!-- External System: Google Identity -->
+        <mxCell id="google" value="&lt;b&gt;Google Identity Provider&lt;/b&gt;&lt;br/&gt;&lt;i&gt;[External System]&lt;/i&gt;&lt;br/&gt;&lt;br/&gt;Hệ thống xác thực tài khoản Google OAuth 2.0 của người dùng." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#666666;fontColor=#ffffff;arcSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="490" y="550" width="220" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Relationships -->
+        <mxCell id="rel_student_sys" value="Đăng ký, cập nhật profile,&lt;br/&gt;tìm kiếm cựu SV, nhắn tin&lt;br/&gt;&lt;i&gt;[HTTPS / WSS]&lt;/i&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.35;strokeColor=#555555;strokeWidth=2;fontSize=11;align=center;" edge="1" parent="1" source="student" target="system">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel_alumni_sys" value="Đăng nhập, chia sẻ bài,&lt;br/&gt;chat tư vấn, mentor&lt;br/&gt;&lt;i&gt;[HTTPS / WSS]&lt;/i&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.35;strokeColor=#555555;strokeWidth=2;fontSize=11;align=center;" edge="1" parent="1" source="alumni" target="system">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel_admin_sys" value="Quản lý thành viên,&lt;br/&gt;kiểm duyệt bài viết&lt;br/&gt;&lt;i&gt;[HTTPS]&lt;/i&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeColor=#555555;strokeWidth=2;fontSize=11;align=center;" edge="1" parent="1" source="admin" target="system">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel_sys_google" value="Xác thực danh tính&lt;br/&gt;&lt;i&gt;[OAuth 2.0 / HTTPS]&lt;/i&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeColor=#555555;strokeWidth=2;fontSize=11;align=center;" edge="1" parent="1" source="system" target="google">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
