@@ -11,6 +11,39 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  userservice:
+    build:
+      context: .
+      dockerfile: src/Services/UserService/Dockerfile
+    container_name: alumni_userservice
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=alumni_user_db;Username=postgres;Password=postgres
+    ports:
+      - "5164:5164"
+
+  chatservice:
+    build:
+      context: .
+      dockerfile: src/Services/ChatService/Dockerfile
+    container_name: alumni_chatservice
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=alumni_chat_db;Username=postgres;Password=postgres
+    ports:
+      - "5199:5199"
 
 volumes:
   pgdata:

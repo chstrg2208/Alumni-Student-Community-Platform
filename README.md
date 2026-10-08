@@ -38,3 +38,15 @@ dotnet run --project src/Services/ChatService/ChatService.csproj --urls "http://
 ```
 Swagger UI: [http://localhost:5199](http://localhost:5199)
 SignalR Hub: `ws://localhost:5199/hubs/chat`
+
+---
+
+## Khởi chạy toàn bộ hệ thống bằng Docker
+Nếu bạn muốn chạy cả Database PostgreSQL lẫn 2 Service bằng Docker Compose:
+```bash
+docker compose up -d --build
+```
+- **PostgreSQL Database:** cổng `5432` (tự động tạo `alumni_user_db` và `alumni_chat_db`)
+- **User Service:** [http://localhost:5164](http://localhost:5164)
+- **Chat Service:** [http://localhost:5199](http://localhost:5199)
+
