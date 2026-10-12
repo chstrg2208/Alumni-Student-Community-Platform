@@ -177,6 +177,7 @@ Dưới đây là đặc tả chi tiết của từng User Story đã được c
 | **US-08** | Đăng xuất & Vô hiệu hóa Token ngay lập tức | `/api/auth/logout` | `POST` | `Bearer {token}` |
 | **US-09** | Tùy chỉnh quyền riêng tư hiển thị trên Profile | `/api/profile/privacy` | `GET` / `PUT` | `Bearer {token}` |
 | **US-10** | Chặn tài khoản / Bỏ chặn / Danh sách chặn | `/api/users/{id}/block`<br>`/api/users/{id}/block`<br>`/api/users/blocked` | `POST`<br>`DELETE`<br>`GET` | `Bearer {token}` |
+| **US-11** | Thêm link Google Calendar vào Profile để liên hệ | `/api/profile/me` | `PUT` | `Bearer {token}` |
 
 ---
 

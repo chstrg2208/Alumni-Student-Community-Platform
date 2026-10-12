@@ -27,6 +27,8 @@ public class User
 
     public string? Bio { get; set; }
 
+    public string? GoogleCalendarUrl { get; set; } // US-11: Link Google Calendar
+
     public string Role { get; set; } = "Student"; // "Student", "Alumni", "Admin"
 
     public bool IsEmailVerified { get; set; } = false;

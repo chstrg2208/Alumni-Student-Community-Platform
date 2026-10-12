@@ -20,4 +20,5 @@ public class UserPrivacySetting
     public bool ShowMajor { get; set; } = true;
     public bool ShowBatch { get; set; } = true;
     public bool ShowBio { get; set; } = true;
+    public bool ShowGoogleCalendar { get; set; } = true;
 }

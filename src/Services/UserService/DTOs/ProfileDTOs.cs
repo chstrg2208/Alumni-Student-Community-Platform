@@ -8,7 +8,8 @@ public record UpdateProfileRequest(
     string? Campus,
     string? Major,
     string? Batch,
-    string? Bio
+    string? Bio,
+    string? GoogleCalendarUrl // US-11
 );
 
 public record MyProfileResponse(
@@ -20,6 +21,7 @@ public record MyProfileResponse(
     string? Major,
     string? Batch,
     string? Bio,
+    string? GoogleCalendarUrl,
     string Role,
     bool IsEmailVerified,
     DateTime CreatedAt,
@@ -34,6 +36,7 @@ public record PublicProfileResponse(
     string? Major,
     string? Batch,
     string? Bio,
+    string? GoogleCalendarUrl, // Shown if allowed by PrivacySetting
     string Role,
     string? Email = null // Only shown if allowed by PrivacySetting
 );
@@ -43,7 +46,8 @@ public record PrivacySettingDto(
     bool ShowCampus,
     bool ShowMajor,
     bool ShowBatch,
-    bool ShowBio
+    bool ShowBio,
+    bool ShowGoogleCalendar
 );
 
 public record UpdatePrivacySettingRequest(
@@ -51,5 +55,6 @@ public record UpdatePrivacySettingRequest(
     bool ShowCampus,
     bool ShowMajor,
     bool ShowBatch,
-    bool ShowBio
+    bool ShowBio,
+    bool ShowGoogleCalendar
 );

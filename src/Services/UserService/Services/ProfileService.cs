@@ -43,6 +43,7 @@ public class ProfileService : IProfileService
             user.Major,
             user.Batch,
             user.Bio,
+            user.GoogleCalendarUrl,
             user.Role,
             user.IsEmailVerified,
             user.CreatedAt,
@@ -51,7 +52,8 @@ public class ProfileService : IProfileService
                 setting.ShowCampus,
                 setting.ShowMajor,
                 setting.ShowBatch,
-                setting.ShowBio
+                setting.ShowBio,
+                setting.ShowGoogleCalendar
             )
         );
     }
@@ -71,6 +73,7 @@ public class ProfileService : IProfileService
         user.Major = request.Major;
         user.Batch = request.Batch;
         user.Bio = request.Bio;
+        user.GoogleCalendarUrl = request.GoogleCalendarUrl;
         user.UpdatedAt = DateTime.UtcNow;
 
         await _dbContext.SaveChangesAsync();
@@ -86,6 +89,7 @@ public class ProfileService : IProfileService
             user.Major,
             user.Batch,
             user.Bio,
+            user.GoogleCalendarUrl,
             user.Role,
             user.IsEmailVerified,
             user.CreatedAt,
@@ -94,7 +98,8 @@ public class ProfileService : IProfileService
                 setting.ShowCampus,
                 setting.ShowMajor,
                 setting.ShowBatch,
-                setting.ShowBio
+                setting.ShowBio,
+                setting.ShowGoogleCalendar
             )
         );
     }
@@ -130,6 +135,7 @@ public class ProfileService : IProfileService
             setting.ShowMajor ? user.Major : null,
             setting.ShowBatch ? user.Batch : null,
             setting.ShowBio ? user.Bio : null,
+            setting.ShowGoogleCalendar ? user.GoogleCalendarUrl : null,
             user.Role,
             setting.ShowEmail ? user.Email : null
         );
@@ -150,7 +156,8 @@ public class ProfileService : IProfileService
             setting.ShowCampus,
             setting.ShowMajor,
             setting.ShowBatch,
-            setting.ShowBio
+            setting.ShowBio,
+            setting.ShowGoogleCalendar
         );
     }
 
@@ -168,6 +175,7 @@ public class ProfileService : IProfileService
         setting.ShowMajor = request.ShowMajor;
         setting.ShowBatch = request.ShowBatch;
         setting.ShowBio = request.ShowBio;
+        setting.ShowGoogleCalendar = request.ShowGoogleCalendar;
 
         await _dbContext.SaveChangesAsync();
 
@@ -176,7 +184,8 @@ public class ProfileService : IProfileService
             setting.ShowCampus,
             setting.ShowMajor,
             setting.ShowBatch,
-            setting.ShowBio
+            setting.ShowBio,
+            setting.ShowGoogleCalendar
         );
     }
 }
